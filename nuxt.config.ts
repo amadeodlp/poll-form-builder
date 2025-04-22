@@ -12,19 +12,17 @@ export default defineNuxtConfig({
   },
   
   app: {
-    head: {
-      title: 'Poll & Form Builder',
-      meta: [
-        { charset: 'utf-8' },
-        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { hid: 'description', name: 'description', content: 'Create and respond to polls and forms' }
-      ],
-      link: [
-        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-        { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap' }
-      ]
-    },
-    baseURL: '/poll-form-builder/'
+    // This ensures all asset URLs are correct when deployed to a subdirectory
+    baseURL: '/poll-form-builder/',
+    // Ensure the build process uses relative paths for assets
+    buildAssetsDir: '/_nuxt/',
+    // CDN URL - leave empty for GitHub Pages
+    cdnURL: ''
+  },
+  
+  vite: {
+    // This ensures the correct base path for all assets
+    base: '/poll-form-builder/'
   },
   
   pinia: {
@@ -34,14 +32,26 @@ export default defineNuxtConfig({
     ]
   },
   
-  // Set to SPA mode for cleaner static deployment
+  // Set to SPA mode for GitHub Pages
   ssr: false,
   
-  // Disable prerendering since we're using client-side routing
+  // Basic static site configuration
   nitro: {
+    preset: 'github-pages',
     prerender: {
       crawlLinks: false,
       routes: ['/']
+    },
+    output: {
+      publicDir: 'dist'
+    }
+  },
+  
+  // For the router
+  router: {
+    options: {
+      // Add this to ensure client-side routing works properly with gh-pages
+      hashMode: false
     }
   }
 })

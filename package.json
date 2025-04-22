@@ -5,10 +5,10 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
-    "generate": "nuxt build && nuxt generate",
+    "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "deploy": "npx push-dir --dir=.output/public --branch=gh-pages --cleanup"
+    "deploy": "npm run generate && npx push-dir --dir=dist --branch=gh-pages --cleanup --allow-unclean"
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^6.11.0",

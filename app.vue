@@ -7,6 +7,13 @@
   </div>
 </template>
 
-<script setup lang="ts">
-// App setup
+<script setup>
+// Check for redirection from 404.html
+if (process.client) {
+  const redirect = sessionStorage.redirect;
+  delete sessionStorage.redirect;
+  if (redirect && redirect !== location.href) {
+    history.replaceState(null, null, redirect);
+  }
+}
 </script>
